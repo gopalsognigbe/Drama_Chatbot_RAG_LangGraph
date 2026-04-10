@@ -1,4 +1,3 @@
-# Projet_RAG_voirdrama
 # 🎬 Drama Chatbot (RAG + LangGraph)
 
 ## Description

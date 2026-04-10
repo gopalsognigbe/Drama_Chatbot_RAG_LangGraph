@@ -1,0 +1,21 @@
+# Environnement virtuel
+venv/
+
+# Cache Python
+__pycache__/
+*.pyc
+
+# Base vectorielle
+chroma_db/
+
+# Variables sensibles
+.env
+
+# Mac
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Logs
+*.log

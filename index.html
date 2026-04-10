@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Drama Chatbot</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+#app {
+  width: 600px;
+  margin-top: 40px;
+}
+
+#chat {
+  height: 400px;
+  overflow-y: auto;
+  border: 1px solid #334155;
+  padding: 10px;
+  border-radius: 10px;
+  background: #020617;
+}
+
+.message {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.user {
+  background: #2563eb;
+  text-align: right;
+}
+
+.bot {
+  background: #334155;
+}
+
+#inputBox {
+  display: flex;
+  margin-top: 10px;
+}
+
+#msg {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+button {
+  margin-left: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="app">
+  <h2>🎬 Drama Chatbot</h2>
+
+  <div id="chat"></div>
+
+  <div id="inputBox">
+    <input id="msg" placeholder="Pose ta question..." />
+    <button onclick="send()">Envoyer</button>
+  </div>
+</div>
+
+<script>
+async function send() {
+  const input = document.getElementById("msg");
+  const chat = document.getElementById("chat");
+
+  let message = input.value;
+  if (!message) return;
+
+  // Afficher message utilisateur
+  chat.innerHTML += `<div class="message user">${message}</div>`;
+
+  input.value = "";
+
+  // Scroll
+  chat.scrollTop = chat.scrollHeight;
+
+  // Appel API
+  const res = await fetch("http://127.0.0.1:8000/chat", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({question: message})
+  });
+
+  const data = await res.json();
+
+  // Afficher réponse bot
+  chat.innerHTML += `<div class="message bot">${data.answer}</div>`;
+
+  chat.scrollTop = chat.scrollHeight;
+}
+</script>
+
+</body>
+</html>
